@@ -1,8 +1,10 @@
 = GitHub Contest Ensemble
 
+A brief intro from a blog post to follow:
+
 My entry to the GitHub contest is a meta-solution. It can't make any recommendations on its own, but rather looks at contest solutions that others have submitted and attempts to combine them in a way that improves upon each of their individual results. This approach applies the logic of the "wisdom of crowds", i.e. find a group, aggregate their input, and hope that individual errors cancel one another out, and the best solution rises to the top. The machine learning literature sometimes refers to this process as bootstrap aggregating, or just "bagging". More generally, this approach asks how best to structure a group so that it is likely to arrive at the best possible collective decision. My approach builds on this logic in that my code doesn't recruit the best individual performers to "the crowd", but rather looks for the most diverse. I call this process diversity-seeking aggregation.
 
-Background
+== Background
 
 The idea of similarity is central to many of the best techniques in machine learning. The k-nearest neighbors algorithm, for example, works on the simple principle that neighbors tend to be alike. If I want to find movies you'll like, I first look for people who have seen movies you have, and given them similar ratings. These are your "nearest neighbors". Then I collect your neighbors' opinions of movies you haven't seen, and add them up. Those movies rated most highly are those you are most likely to enjoy. The logic is simple: people with similar tastes are likely to enjoy the same movies. You can invert the process and apply it to movies as well: similar movies are likely to be enjoyed by the same group of people.
 
@@ -66,8 +68,6 @@ These are typical parameters I would use to form an ensemble:
 
 
 == Author and license
-
-Author::                Jeff Heuer
 
 Copyright (c) 2009 Jeff Heuer
 
