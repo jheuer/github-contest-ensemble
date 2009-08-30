@@ -1,6 +1,6 @@
 = GitHub Contest Ensemble
 
-A brief intro from a blog post to follow:
+A brief intro targeted at a more general audience, from a blog post to follow:
 
 My entry to the GitHub contest is a meta-solution. It can't make any recommendations on its own, but rather looks at contest solutions that others have submitted and attempts to combine them in a way that improves upon each of their individual results. This approach applies the logic of the "wisdom of crowds", i.e. find a group, aggregate their input, and hope that individual errors cancel one another out, and the best solution rises to the top. The machine learning literature sometimes refers to this process as bootstrap aggregating, or just "bagging". More generally, this approach asks how best to structure a group so that it is likely to arrive at the best possible collective decision. My approach builds on this logic in that my code doesn't recruit the best individual performers to "the crowd", but rather looks for the most diverse. I call this process diversity-seeking aggregation.
 
@@ -25,30 +25,30 @@ Some links to background information:
 
 An Ensemble can be created with the following parameters:
 
-  * :ensemble_size: the number of members in the final ensemble (default: 10)
-  * :similarity_measure: the method used to compare the similarity of two results
-    * :jaccard: see http://en.wikipedia.org/wiki/Jaccard_index
-    * :dice: see http://en.wikipedia.org/wiki/Dice%27s_coefficient
-  * :first_member: the method used to choose the first member of the ensemble
-    * :best: seed ensemble with the highest scoring member of the resultset
-    * :random: seed ensemble with a random member of the resultset
-  * :diversity_weight: the method used to weight the diversity (inverse similarity measure) of a given result
-    * :score:
-    * :sqrt_score:
-    * :log_score:
-    * :rank:
-  * :blending_weight: the method used to weight the recommendations of each ensemble member result when blending
-    * :equal: each ensemble member gets an equal vote
-    * :rank_within_ensemble: each ensemble member's vote is weighted by their rank within the ensemble
-    * :rank_within_resultset: each ensemble member's vote is weighted by their rank within the entire resultset population
-    * :score: each ensemble member's vote is weighted by its score
-    * :sqrt_score: each ensemble member's vote is weighted by the square root of its score
-    * :log_score: each ensemble member's vote is weighted by the log of its score
-  * :repo_recommendations_per_user: the number of repo recommendations to make for each user (default: 10)
-  * :results_file: filename to use when recording results, without file extension (default: 'results')
-  * :save_intermediate_results: whether results should be saved after each incremental member is added to ensemble (default: true)
-    * true
-    * false
+* :ensemble_size: the number of members in the final ensemble (default: 10)
+* :similarity_measure: the method used to compare the similarity of two results
+  * :jaccard: see http://en.wikipedia.org/wiki/Jaccard_index
+  * :dice: see http://en.wikipedia.org/wiki/Dice%27s_coefficient
+* :first_member: the method used to choose the first member of the ensemble
+  * :best: seed ensemble with the highest scoring member of the resultset
+  * :random: seed ensemble with a random member of the resultset
+* :diversity_weight: the method used to weight the diversity (inverse similarity measure) of a given result
+  * :score:
+  * :sqrt_score:
+  * :log_score:
+  * :rank:
+* :blending_weight: the method used to weight the recommendations of each ensemble member result when blending
+  * :equal: each ensemble member gets an equal vote
+  * :rank_within_ensemble: each ensemble member's vote is weighted by their rank within the ensemble
+  * :rank_within_resultset: each ensemble member's vote is weighted by their rank within the entire resultset population
+  * :score: each ensemble member's vote is weighted by its score
+  * :sqrt_score: each ensemble member's vote is weighted by the square root of its score
+  * :log_score: each ensemble member's vote is weighted by the log of its score
+* :repo_recommendations_per_user: the number of repo recommendations to make for each user (default: 10)
+* :results_file: filename to use when recording results, without file extension (default: 'results')
+* :save_intermediate_results: whether results should be saved after each incremental member is added to ensemble (default: true)
+  * true
+  * false
   
 
 == Example usage
