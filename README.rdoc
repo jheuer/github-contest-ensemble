@@ -1,0 +1,98 @@
+= GitHub Contest Ensemble
+
+My entry to the GitHub contest is a meta-solution. It can't make any recommendations on its own, but rather looks at contest solutions that others have submitted and attempts to combine them in a way that improves upon each of their individual results. This approach applies the logic of the "wisdom of crowds", i.e. find a group, aggregate their input, and hope that individual errors cancel one another out, and the best solution rises to the top. The machine learning literature sometimes refers to this process as bootstrap aggregating, or just "bagging". More generally, this approach asks how best to structure a group so that it is likely to arrive at the best possible collective decision. My approach builds on this logic in that my code doesn't recruit the best individual performers to "the crowd", but rather looks for the most diverse. I call this process diversity-seeking aggregation.
+
+Background
+
+The idea of similarity is central to many of the best techniques in machine learning. The k-nearest neighbors algorithm, for example, works on the simple principle that neighbors tend to be alike. If I want to find movies you'll like, I first look for people who have seen movies you have, and given them similar ratings. These are your "nearest neighbors". Then I collect your neighbors' opinions of movies you haven't seen, and add them up. Those movies rated most highly are those you are most likely to enjoy. The logic is simple: people with similar tastes are likely to enjoy the same movies. You can invert the process and apply it to movies as well: similar movies are likely to be enjoyed by the same group of people.
+
+My approach flips two dimensions of that described above. First, instead of looking for similarity between two users, or two movies, my code jumps up a level and compares recommendation algorithms themselves. Second, instead of looking for things that are most alike, my diversity-seeking aggregation algorithm looks for those solutions which are least alike. My hope is that this approach invites new ideas into a group which improves the quality of its collective recommendations.
+
+
+Some links to background information:
+
+* A blog post describing my approach: http://www.jeffheuer.com/blog (coming soon!)
+* My approach was partially inspired by reading The Difference by Scott Page: http://www.cscs.umich.edu/~spage/thedifference.html
+* Some great resources on aggregating diverse models from Cosma Shalizi
+  * Diversity in Machine Learning and Multi-Agent Systems: http://cscs.umich.edu/~crshalizi/notebooks/diversity-in-ml.html
+  * Model Selection: http://cscs.umich.edu/~crshalizi/notebooks/model-selection.html
+  * Ensemble Methods in Machine Learning: http://cscs.umich.edu/~crshalizi/notebooks/ensemble-ml.html
+
+
+== Options
+
+An Ensemble can be created with the following parameters:
+
+  * :ensemble_size: the number of members in the final ensemble (default: 10)
+  * :similarity_measure: the method used to compare the similarity of two results
+    * :jaccard: see http://en.wikipedia.org/wiki/Jaccard_index
+    * :dice: see http://en.wikipedia.org/wiki/Dice%27s_coefficient
+  * :first_member: the method used to choose the first member of the ensemble
+    * :best: seed ensemble with the highest scoring member of the resultset
+    * :random: seed ensemble with a random member of the resultset
+  * :diversity_weight: the method used to weight the diversity (inverse similarity measure) of a given result
+    * :score:
+    * :sqrt_score:
+    * :log_score:
+    * :rank:
+  * :blending_weight: the method used to weight the recommendations of each ensemble member result when blending
+    * :equal: each ensemble member gets an equal vote
+    * :rank_within_ensemble: each ensemble member's vote is weighted by their rank within the ensemble
+    * :rank_within_resultset: each ensemble member's vote is weighted by their rank within the entire resultset population
+    * :score: each ensemble member's vote is weighted by its score
+    * :sqrt_score: each ensemble member's vote is weighted by the square root of its score
+    * :log_score: each ensemble member's vote is weighted by the log of its score
+  * :repo_recommendations_per_user: the number of repo recommendations to make for each user (default: 10)
+  * :results_file: filename to use when recording results, without file extension (default: 'results')
+  * :save_intermediate_results: whether results should be saved after each incremental member is added to ensemble (default: true)
+    * true
+    * false
+  
+
+== Example usage
+
+These are typical parameters I would use to form an ensemble:
+
+  e = Ensemble.new(
+    :similarity_measure => :jaccard,
+    :diversity_weight => :score,
+    :blending_weight => :rank_within_resultset,
+    :results_file => 'results_ensemble')
+  e.load_resultsets_from_leaderboard(
+    :min_score => 250
+    :ignore_repos => ['jheuer/github-contest-ensemble'],
+    :load_from_cache => true)
+  e.run
+
+
+== Author and license
+
+Author::                Jeff Heuer
+
+Copyright (c) 2009 Jeff Heuer
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+Except as contained in this notice, the name(s) of the above 
+copyright holders shall not be used in advertising or otherwise 
+to promote the sale, use or other dealings in this Software 
+without prior written authorization.
