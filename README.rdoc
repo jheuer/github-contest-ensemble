@@ -13,7 +13,7 @@ My approach flips two dimensions of that described above. First, instead of look
 
 Some links to background information:
 
-* A blog post describing my approach: http://www.jeffheuer.com/blog (coming soon!)
+* A blog post describing my approach: http://www.jeffheuer.com/blog
 * My approach was partially inspired by reading The Difference by Scott Page: http://www.cscs.umich.edu/~spage/thedifference.html
 * Some great resources on aggregating diverse models from Cosma Shalizi
   * Diversity in Machine Learning and Multi-Agent Systems: http://cscs.umich.edu/~crshalizi/notebooks/diversity-in-ml.html
